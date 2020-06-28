@@ -2,16 +2,15 @@ class Solution:
     
     #   Time:   O(2^N)
     #   Space:  O(2^N)
-    def __helper(self, nums: List[int], currentIndex: int, tempList: List[int], subSetsList: List[List[int]]) -> None:
+    def __helper(self, nums: List[int], prevIndex: int, tempList: List[int], finalLists: List[List[int]]) -> None:
         
-        #   add whenever this funcction is called
-        subSetsList.append(list(tempList))
+        #   each candidate that we pass as an argument (tempList) is a valid candidate => add the candidate
+        finalLists.append(tempList[:])
         
-        #   iterate from current index to last index,
-        #   add the iterating index's value to temp list and backtrack once done.
-        for secondIndex in range(currentIndex, len(nums)):
-            tempList.append(nums[secondIndex])
-            self.__helper(nums, secondIndex + 1, tempList, subSetsList)
+        #   list of possible candidates are from next index of passed index to the last index
+        for indexToAdd in range(prevIndex + 1, len(nums)):
+            tempList.append(nums[indexToAdd])
+            self.__helper(nums, indexToAdd, tempList, finalLists)
             tempList.pop()
             
         return
@@ -19,10 +18,10 @@ class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         
         if (nums == None or len(nums) == 0):
-            return[]
+            return []
         
-        subSetsList = []
+        finalLists = []
         
-        self.__helper(nums, 0, [], subSetsList)
+        self.__helper(nums, -1, [], finalLists)
         
-        return subSetsList
+        return finalLists
