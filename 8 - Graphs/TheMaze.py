@@ -1,4 +1,8 @@
 class Solution:
+
+    #   Time:   O(V + E)
+    #   Space:  O(V + E)
+
     def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
         
         #   edge case check
