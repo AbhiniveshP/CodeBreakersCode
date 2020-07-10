@@ -8,8 +8,6 @@ class Solution:
         
         for i in range(1, len(nums)):
             
-            newMax = max(currMax, nums[i] + prevMax)
-            prevMax = currMax
-            currMax = newMax
+            prevMax, currMax = currMax, max(nums[i] + prevMax, currMax)
             
         return currMax
